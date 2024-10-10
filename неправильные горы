@@ -1,0 +1,59 @@
+При путешествии по планете марсоход постоянно замеряет высоту рельефа и сохраняет результаты замеров в массив.
+Одна из задач марсохода — поиск «правильных гор». «Правильной» считается та гора, у которой на пути от подножия до вершины высота постоянно растёт, а на пути от вершины к подножию — постоянно уменьшается. Если у горы есть несколько вершин или в каком-то месте встречается горизонтальный участок — это «неправильная гора».
+Напишите функцию valid_mountain_array, которая будет принимать на вход массив с высотами и возвращать True или False в зависимости от того, «правильная» это гора или нет.
+Если в массиве менее трёх элементов, такой массив не может описывать «правильную» гору.
+Формат ввода
+
+Массив целых чисел через пробел — отметки о высоте точек рельефа.
+Формат вывода
+
+Булево значение: True — если гора «правильная», False — если гора «неправильная».
+Пример 1
+
+Ввод	
+2 1 3 5 8
+Вывод
+False
+
+Пример 2
+
+Ввод	
+3 5 5
+Вывод
+False
+
+Пример 3
+
+Ввод	
+0 3 2 1
+Вывод
+True
+
+def main(numbers):
+    new_numbers = [int(num) for num in numbers]
+    max_value = max(new_numbers)
+    index = new_numbers.index(max_value)
+    count = 0
+    for i in range(index):
+        if new_numbers[i] > new_numbers[i + 1]:
+            count += 1
+    for b in range(index, len(new_numbers) - 1):
+        if new_numbers[b] < new_numbers[b + 1]:
+            count += 1
+    for c in range(len(new_numbers) - 1):
+        if c != index and new_numbers[c] == new_numbers[index]:
+            count += 1
+        if c != index and new_numbers[c] == new_numbers[c + 1]:
+            count += 1
+    if new_numbers[index] == new_numbers[len(new_numbers) - 1] or index == 0:
+        count += 1
+    if count != 0:
+        return False
+    else:
+        return True
+
+
+if __name__ == '__main__':
+    numbers = input().split()
+    result = main(numbers)
+    print(result)
